@@ -6,13 +6,18 @@
   <meta charset="utf-8">
 </head>
 
-<body>
-  <h3>Geotiff File</h3>
-  <input type="file" id="file-input" accept=".zip,.shp,.shx,.prj,.dbf,.cbg" onchange="readShapeFiles(this.files)" multiple />
-  <div id="geojson-link"></div>
-  <br>
+<body style="background-color: #777">
+  <div style="width: 75%; padding: 2em; background-color: #fff; min-height: 750px; margin: 10px auto; border: 1px solid black; border-radius: 7px">
+    <h3>Shape File (.zip)</h3>
+    <input type="file" id="file-input" accept=".zip,.shp,.shx,.prj,.dbf,.cbg" onchange="readShapeFiles(this.files)" multiple />
+    <ul>
+      <li id="geojson-link">...choose a file...</li>
+    </ul>
+    <br>
 
-  <pre id="query-result" style="border: 1px solid black; min-height: 50px;"></pre>
+    <h3>GQL upsert_fields Example</h3>
+    <pre id="query-result" style="border: 1px solid black; min-height: 50px;"></pre>
+  </div>
 
   <script src="https://unpkg.com/shpjs@latest/dist/shp.js"></script>
 
@@ -28,7 +33,7 @@
         console.log('geojson', geojson)
         const geojsonStr = JSON.stringify(geojson)
         geojsonIoUrl = 'http://geojson.io/#data=data:application/json,' + encodeURI(geojsonStr)
-        document.getElementById('geojson-link').innerHTML = `<a href="${geojsonIoUrl}" target="_blank">Geojson.io</a>`
+        document.getElementById('geojson-link').innerHTML = `<a href="${geojsonIoUrl}" target="_blank">View on Geojson.io</a>`
 
         const upsertFields = buildUpsertFieldsMutation(geojson.features)
         console.log('upsertFields', upsertFields)
