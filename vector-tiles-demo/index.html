@@ -41,14 +41,19 @@
         L.map('map4').setView(initialState.latLng, initialState.zoom)
       ]
 
-      const basicStyle = {
-        weight: 1,
-        color: 'red',
-        opacity: 1,
-        fillColor: 'yellow',
-        fill: true,
-        radius: 5,
-        fillOpacity: 1.0
+      const basicStyle = function(props, zoom, geometry) {
+        // Each feature has a random 0.0-100.0 value on it
+        const intensity = Math.floor(255 * (props.value / 100.0)).toString(16)
+        const color = `#${intensity}${intensity}${intensity}`
+        return {
+          weight: 1,
+          color: 'red',
+          opacity: 1,
+          fillColor: color,
+          fill: true,
+          radius: 5,
+          fillOpacity: 1.0
+        }
       }
 
       const baseUrlAndPath = window.location.href.replace('/index.html','')
